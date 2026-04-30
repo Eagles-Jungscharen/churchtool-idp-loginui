@@ -1,23 +1,15 @@
-import { useEffect, useState } from 'react';
 import { MessageBar, MessageBarBody, MessageBarTitle } from '@fluentui/react-components';
-import { LoginLayout } from './components/LoginLayout';
+import { useState } from 'react';
 import { LoginForm } from './components/LoginForm';
+import { LoginLayout } from './components/LoginLayout';
 import { appConfig } from './config/appConfig';
 import { getAuthorizationRequestId, hasAuthorizationRequestId } from './utils/urlUtils';
 
-function App() {
-  const [authRequestId, setAuthRequestId] = useState<string | null>(null);
-  const [hasValidParam, setHasValidParam] = useState(false);
+const App: React.FunctionComponent = () => {
+  const [authRequestId] = useState<string | null>(getAuthorizationRequestId());
+  const [hasValidParam] = useState(hasAuthorizationRequestId());
 
-  useEffect(() => {
-    // Prüfe beim Mount, ob der authorization_request_id Parameter vorhanden ist
-    const id = getAuthorizationRequestId();
-    const isValid = hasAuthorizationRequestId();
-    
-    setAuthRequestId(id);
-    setHasValidParam(isValid);
-  }, []);
-
+  
   // Wenn der Parameter fehlt, zeige eine Fehlermeldung
   if (!hasValidParam || !authRequestId) {
     return (

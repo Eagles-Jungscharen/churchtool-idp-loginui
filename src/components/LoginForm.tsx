@@ -38,7 +38,8 @@ interface LoginFormProps {
 /**
  * Login-Formular mit Benutzername und Passwort
  */
-export function LoginForm({ authenticationRequestId }: LoginFormProps) {
+export const LoginForm: React.FunctionComponent<LoginFormProps> = (props: LoginFormProps) => {
+  const { authenticationRequestId } = props;
   const styles = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -71,7 +72,7 @@ export function LoginForm({ authenticationRequestId }: LoginFormProps) {
       }
       // Bei Erfolg wird der Browser automatisch weitergeleitet (302)
       // Daher keine weitere Aktion nötig
-    } catch (err) {
+    } catch {
       setError('Ein unerwarteter Fehler ist aufgetreten');
       setIsLoading(false);
     }

@@ -7,7 +7,8 @@ interface ErrorMessageProps {
 /**
  * Komponente zur Anzeige von Fehlermeldungen
  */
-export function ErrorMessage({ error }: ErrorMessageProps) {
+export const ErrorMessage: React.FunctionComponent<ErrorMessageProps> = (props: ErrorMessageProps) => {
+  const { error } = props;
   if (!error) {
     return null;
   }
