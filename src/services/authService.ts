@@ -29,16 +29,13 @@ export async function login(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-      // Wichtig: followRedirect ist standardmäßig aktiviert, der Browser folgt 302
       redirect: 'follow',
     });
-
-    // Bei erfolgreichem Login wird der Server einen 302-Redirect senden
-    // Der Browser folgt diesem automatisch
-    // Wenn wir hier ankommen und die Response OK ist, war es erfolgreich
-    if (response.ok || response.redirected) {
-      // Erfolgreicher Login - der Browser sollte bereits weitergeleitet worden sein
-      // oder wird weitergeleitet
+    if (response.ok) {
+      const data = await response.json() as { callback?: string };
+      if (data.callback) {
+        window.location.href = data.callback;
+      }
       return { success: true };
     }
 
